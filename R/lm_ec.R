@@ -40,3 +40,4 @@ lm_ec <- function(formula, data) {
   return(model)
 
 }
+
