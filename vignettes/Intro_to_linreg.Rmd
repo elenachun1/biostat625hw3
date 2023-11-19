@@ -1,0 +1,69 @@
+---
+title: "Introduction to Linear Regression"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to Linear Regression}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lm)
+```
+
+### Introduction
+In this vignette, we will demonstrate how to use the 'lm' package to perform linear regression on the R dataset 'iris'. This analysis uses a linear approach when modelling the relationship between the response variable and the predictor variables. The 'iris' dataset contains four measurements (sepal length, sepal width, petal length, and petal width) for 50 flowers that are from 3 species.
+
+```{r}
+data(iris)
+```
+
+### Perform linear regression on iris
+The 'lm_ec" function will create the linear regression model object. The required input is the formula of the model and the data that linear regression will be performed on. 
+
+```{r}
+m1 <- lm_ec(Sepal.Length~Sepal.Width+Petal.Length, data = iris)
+m1
+```
+
+This creates a linear regression model and returns the estimated intercept and coefficients of each predictor. This model explores the relationship between a flower's sepal length to its sepal width and petal length.
+
+The 'lm_summ_ec' function will summarize the residuals, coefficients and model fit of the linear regression model.
+```{r}
+summ1 <- lm_summ_ec(m1)
+summ1
+```
+
+This outputs the minimum, 1st quartile, median, 3rd quartile, and maximum of the distribution of residuals from the regression mode. Residuals are the differences between the observed and predicted values from the model. The summary function also returns the estimate, standard error, t test statistic and corresponding p value of the coefficients of the predictors. Finally, it summarizes how well the model fits to the data with the residual standard error, r squared, and F statistic.
+
+Next, we will compare these two functions to the original R functions. We will build the same iris linear regression model but with the R lm function and summary function, and then use all.equal() and benchmark to compare the correctness and efficiency.
+
+```{r}
+m2 <- lm(Sepal.Length~Sepal.Width+Petal.Length, data = iris)
+m2
+
+all.equal(m1,m2)
+```
+
+
+```{r}
+summ2 <- summary(m2)
+summ2
+all.equal(summ1, summ2)
+```
+When comparing the lm_ec and lm_summ_ec functions to the lm and summary functions, there are string mismatches and differences in the attributes of the output. However, the two functions can replicate similar output as the original two functions.
+
+```{r}
+#install.packages("bench")
+#library(bench)
+bench::mark(m1, m2, check=FALSE)
+bench::mark(summ1, summ2, check=FALSE)
+```
+The lm_ec and lm_summ_ec functions lose a slight efficiency compared to the R lm and summary functions.

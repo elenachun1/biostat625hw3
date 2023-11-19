@@ -10,6 +10,7 @@
 #' @examples
 #' data(mtcars)
 #' lm_ec(mpg ~ hp + wt, data = mtcars)
+#'
 lm_ec <- function(formula, data) {
   # Get response and predictor variables from the formula
   response <- as.character(formula[[2]])
@@ -40,4 +41,3 @@ lm_ec <- function(formula, data) {
   return(model)
 
 }
-
