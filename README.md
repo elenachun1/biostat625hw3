@@ -4,7 +4,7 @@
 <!-- badges: end -->
 
 # Linear Regression package: lm
-The goal of lm is to perform linear regression and understand the coefficients, residuals, and how well the model is fit to the data.
+The goal of lm is to perform linear regression and understand the coefficients, residuals, and how well the model is fit to the data. Linear regression analysis uses a linear approach when modelling the relationship between the response variable and the predictor variables.
 
 ## Installation
 You can install the package from GitHub with:

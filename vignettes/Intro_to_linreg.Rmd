@@ -62,7 +62,7 @@ When comparing the lm_ec and lm_summ_ec functions to the lm and summary function
 
 ```{r}
 #install.packages("bench")
-#library(bench)
+library(bench)
 bench::mark(m1, m2, check=FALSE)
 bench::mark(summ1, summ2, check=FALSE)
 ```
